@@ -1,0 +1,4 @@
+*.pyc
+__pycache__/
+*.so  # Cython compiled
+*.pyd # Cython compiled
