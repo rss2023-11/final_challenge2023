@@ -7,6 +7,11 @@
 
 # Final Challenge 2023
 
+## **How to set up this package**
+
+1. Copy this package to your Docker environment or racecar in the location `~/racecar_ws/src/final_challenge2023`
+2. Run `catkin_make` in your `racaecar_ws` directory and then `source devel/setup.bash`.
+3. Navigate to the directory `~/racecar_ws/src/final_challenge2023` and run `pip install -r requirements.txt` to install the python requirements
 
 ## Introduction
 
