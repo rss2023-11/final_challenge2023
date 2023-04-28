@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw
 
 class StopSignDetector:
   def __init__(self, threshold=0.5):
-    self.model = torch.hub.load('ultralytics/yolov5', 'yolov5n', pretrained=True)
+    self.model = None#torch.hub.load('ultralytics/yolov5', 'yolov5n', pretrained=True)
     self.threshold = threshold
     self.results = None
 
@@ -23,6 +23,8 @@ class StopSignDetector:
       # Path has been passed in
       img_path = img
       img = read_image(img_path)
+    
+    #return True, (50, 50, 250, 250) # TODO: Delete this! For testing purposes only
 
     results = self.model(img)
     results_df = results.pandas().xyxy[0]
