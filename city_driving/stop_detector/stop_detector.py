@@ -19,10 +19,8 @@ class SignDetector:
     def callback(self, img_msg):
         # Process image without CV Bridge
         np_img = np.frombuffer(img_msg.data, dtype=np.uint8).reshape(img_msg.height, img_msg.width, -1)
-        bgr_img = np_img[:,:,:3]
-        #print(bgr_img)
-        #print(bgr_img.shape)
-        rgb_img = bgr_img[:,:,::-1]
+        bgr_img = np_img[:, :, :3]
+        rgb_img = bgr_img[:, :, ::-1]
         #rgb_img = cv2.cvtColor(bgr_img, cv2.COLOR_BGR2RGB)
 
         is_stop_sign, bounding_box = self.detector.predict(rgb_img)

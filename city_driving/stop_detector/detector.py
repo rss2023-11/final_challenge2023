@@ -1,6 +1,5 @@
 import os
 import cv2
-import torch
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,27 +17,54 @@ class StopSignDetector:
     Takes in a path or numpy array representing an image
     returns whether or not there is a stop sign
     """
-
     if type(img) == str:
       # Path has been passed in
       img_path = img
       img = read_image(img_path)
-    
-    #return True, (50, 50, 250, 250) # TODO: Delete this! For testing purposes only
 
-    results = self.model(img)
-    results_df = results.pandas().xyxy[0]
-    self.results = results_df
+    # convert the image to the HSV color space
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 
-    return is_stop_sign(results_df, threshold=self.threshold), get_bounding_box(results_df, threshold=self.threshold)
+    # define a range of red color in HSV
+    lower_red = np.array([0, 50, 50])
+    upper_red = np.array([10, 255, 255])
+    mask1 = cv2.inRange(hsv, lower_red, upper_red)
 
-  def draw_box(self, img, box=None):
-    if box is None: _, box = self.predict(img)
-    box_img = draw_box(img, box)
-    return box_img
+    lower_red = np.array([170, 50, 50])
+    upper_red = np.array([180, 255, 255])
+    mask2 = cv2.inRange(hsv, lower_red, upper_red)
 
-  def set_threshold(self, new_thresh):
-    self.threshold=new_thresh
+    # combine the masks
+    mask = cv2.bitwise_or(mask1, mask2)
+
+    # apply the mask to the original image
+    red_img = cv2.bitwise_and(img, img, mask=mask)
+
+    # convert the red image to grayscale
+    gray = cv2.cvtColor(red_img, cv2.COLOR_BGR2GRAY)
+
+    # apply a median blur to the grayscale image
+    gray = cv2.medianBlur(gray, 5)
+
+    # find contours in the image
+    contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = contours[0] if len(contours) == 2 else contours[1]
+
+    # find the contour with the largest area
+    max_area = 400 # Require that the stop sign take up at least 400 pixels
+    max_contour = None
+    for contour in contours:
+        area = cv2.contourArea(contour)
+        if area > max_area:
+            max_area = area
+            max_contour = contour
+
+    if max_contour is None:
+        return False, (0, 0, 0, 0)
+    else:
+      # draw a bounding box around the largest contour
+      x, y, w, h = cv2.boundingRect(max_contour)
+      return True, (x, y, x + w, y + h)
 
 
 # Utilities

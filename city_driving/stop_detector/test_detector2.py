@@ -15,16 +15,14 @@ def publish_image():
     bridge = CvBridge()
 
     # Load image
-    img = cv2.imread('../../media/city_driving.png')
-    print(img.shape)
+    img = cv2.imread('../../media/stop_sign.jpg')
     # Convert image to ROS message
     img_msg = bridge.cv2_to_imgmsg(img, encoding='bgr8')
 
-    # Publish image message
-    pub.publish(img_msg)
-
-    # Spin once to publish the message
-    rospy.spin()
+    while not rospy.is_shutdown():
+        # Publish image message
+        pub.publish(img_msg)
+        rospy.sleep(1)
 
 if __name__ == '__main__':
     try:
