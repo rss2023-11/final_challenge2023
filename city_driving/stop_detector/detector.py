@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw
 
 class StopSignDetector:
   def __init__(self, threshold=0.5):
-    self.model = None#torch.hub.load('ultralytics/yolov5', 'yolov5n', pretrained=True)
+    self.model = torch.hub.load('ultralytics/yolov5', 'yolov5n', pretrained=True, force_reload=True)
     self.threshold = threshold
     self.results = None
 

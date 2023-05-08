@@ -1,0 +1,14 @@
+numpy
+opencv-python
+rospkg
+pillow
+pyyaml
+requests
+scipy
+torch
+torchvision
+tqdm
+matplotlib
+pandas
+psutil
+seaborn
