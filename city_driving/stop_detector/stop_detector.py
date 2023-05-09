@@ -40,11 +40,7 @@ class SignDetector:
 
     def depth_callback(self, img_msg):
         # Process depth image without CV Bridge
-        depth_image = np.frombuffer(img_msg.data, dtype=np.uint16).reshape(img_msg.height, img_msg.width)
-
-        # Convert the 16-bit grayscale image to floating point depth values
-        depth_scale = 0.001  # ZED camera depth scale factor (it's given in millimeters and we want meters)
-        self.depth = depth_scale * depth_image.astype(np.float32)
+        self.depth = np.frombuffer(img_msg.data, dtype=np.float32).reshape(img_msg.height, img_msg.width)
 
         # Only publish a message for the image callback:
         return
