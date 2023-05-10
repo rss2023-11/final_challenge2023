@@ -14,7 +14,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
+  ConeLocation.msg
+  ConeLocationPixel.msg
   DetectedObject.msg
+  ParkingError.msg
 )
 
 generate_messages(

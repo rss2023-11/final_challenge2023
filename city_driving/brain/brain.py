@@ -6,20 +6,19 @@ from final_challenge2023.msg import DetectedObject
 from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
 
 class Brain:
-    DRIVE_TOPIC = rospy.get_param("~drive_topic")
-
-    STOPSIGN_TOPIC = rospy.get_param("~stopsign_topic", "/stopsign")
-    LINE_FOLLOWING_TOPIC = rospy.get_param("~line_following_drive_topic", "/line_following_drive")
-
     def __init__(self):
+        DRIVE_TOPIC = rospy.get_param("~drive_topic")
+
+        STOPSIGN_TOPIC = rospy.get_param("~stopsign_topic", "/stopsign")
+        LINE_FOLLOWING_TOPIC = rospy.get_param("~line_following_drive_topic", "/line_following_drive")
         self.line_following_drive = None
         self.stopsign_present = False
         self.stopsign_distance = None
 
-        self.drive_pub = rospy.Publisher(self.DRIVE_TOPIC, AckermannDriveStamped, queue_size=10) # Publish the drive actions to the robot
+        self.drive_pub = rospy.Publisher(DRIVE_TOPIC, AckermannDriveStamped, queue_size=10) # Publish the drive actions to the robot
 
-        self.stopsign_sub = rospy.Subscriber(self.STOPSIGN_TOPIC, DetectedObject, self.stopsign_callback)
-        self.line_following_sub = rospy.Subscriber(self.LINE_FOLLOWING_TOPIC, AckermannDriveStamped, self.line_following_callback)
+        self.stopsign_sub = rospy.Subscriber(STOPSIGN_TOPIC, DetectedObject, self.stopsign_callback)
+        self.line_following_sub = rospy.Subscriber(LINE_FOLLOWING_TOPIC, AckermannDriveStamped, self.line_following_callback)
 
         # Main loop--publish a drive command for the robot 100 times per second
         while not rospy.is_shutdown():
