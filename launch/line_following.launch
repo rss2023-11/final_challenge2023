@@ -1,7 +1,7 @@
 <launch>
   <!-- Launch the line follower on the real robot. Launches controller node, line detection node, and the homography transformer -->
 
-  <node pkg="final_challenge2023" type="parking_controller.py" name="parking_controller" output="screen">
+  <node pkg="final_challenge2023" type="line_following_controller.py" name="line_following_controller" output="screen">
     <rosparam command="load" file="$(find final_challenge2023)/params.yaml"/>
   </node>
 

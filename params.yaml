@@ -1,9 +1,11 @@
+# For the brain:
+drive_topic: '/vesc/ackermann_cmd_mux/input/navigation'
+
 # For the stop sign detector:
 stopsign_topic: "/stopsign"
 
 # For the line following:
 scan_topic: '/scan'
-#line_following_drive_topic: '/vesc/ackermann_cmd_mux/input/navigation'
 line_following_drive_topic: '/line_following_drive'
 
 # For the safety controller:
