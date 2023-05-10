@@ -10,7 +10,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from ackermann_msgs.msg import AckermannDriveStamped
 from visualization_msgs.msg import Marker
-from line_following.msg import ConeLocation, ConeLocationPixel
+from final_challenge2023.msg import ConeLocation, ConeLocationPixel
 
 #The following collection of pixel locations and corresponding relative
 #ground plane locations are used to compute our homography matrix
