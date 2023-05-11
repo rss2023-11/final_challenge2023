@@ -1,5 +1,7 @@
 # For the brain:
 drive_topic: '/vesc/ackermann_cmd_mux/input/navigation'
+stop_time: 1
+ignore_time: 2
 
 # For the stop sign detector:
 stopsign_topic: "/stopsign"
