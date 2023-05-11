@@ -2,3 +2,4 @@
 __pycache__/
 *.so  # Cython compiled
 *.pyd # Cython compiled
+.vscode/
