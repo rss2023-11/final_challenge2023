@@ -1,0 +1,15 @@
+# For the brain:
+drive_topic: '/vesc/ackermann_cmd_mux/input/navigation'
+stop_time: 1
+ignore_time: 2
+
+# For the stop sign detector:
+stopsign_topic: "/stopsign"
+
+# For the line following:
+scan_topic: '/scan'
+line_following_drive_topic: '/line_following_drive'
+
+# For the safety controller:
+safety_topic: '/vesc/low_level/ackermann_cmd_mux/input/safety'
+stopping_scale: 0.5

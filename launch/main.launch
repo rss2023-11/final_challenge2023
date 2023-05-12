@@ -1,0 +1,14 @@
+<launch>
+  <!-- Launch everything for the final challenge, including the brain, stop sign detector, line follower, etc. -->
+
+  <!-- Launch the stop sign detector -->
+  <include file="$(find final_challenge2023)/launch/detect_stopsign.launch"/>
+
+  <!-- Launch the line follower -->
+  <include file="$(find final_challenge2023)/launch/line_following.launch"/>
+
+  <!-- Launch the brain -->
+  <node pkg="final_challenge2023" type="brain.py" name="brain" output="screen">
+    <rosparam command="load" file="$(find final_challenge2023)/params.yaml"/>
+  </node>
+</launch>

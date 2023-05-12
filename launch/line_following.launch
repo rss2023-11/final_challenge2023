@@ -1,0 +1,16 @@
+<launch>
+  <!-- Launch the line follower on the real robot. Launches controller node, line detection node, and the homography transformer -->
+
+  <node pkg="final_challenge2023" name="line_following_controller" type="line_following_controller.py" output="screen">
+    <rosparam command="load" file="$(find final_challenge2023)/params.yaml"/>
+  </node>
+
+  <node pkg="final_challenge2023" name="line_detector" type="line_detector.py" output="screen">
+  </node>
+
+  <node pkg="final_challenge2023" name="homography_transformer" type="homography_transformer.py" output="screen">
+  </node>
+
+  <node pkg="image_transport" name="republish" type="republish" args="raw in:=/cone_debug_img out:=/cone_debug_img_compressed" output="screen"></node>
+
+</launch>

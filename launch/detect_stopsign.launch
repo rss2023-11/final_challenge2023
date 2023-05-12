@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="final_challenge2023" type="stop_detector.py" name="detect_stopsign" output="screen">
+    <rosparam command="load" file="$(find final_challenge2023)/params.yaml"/>
+  </node>
+</launch>
