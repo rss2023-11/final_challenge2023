@@ -24,6 +24,11 @@ class ParkingController():
         self.error_pub = rospy.Publisher("/parking_error",
             ParkingError, queue_size=10)
 
+<<<<<<< Updated upstream
+=======
+        self.speed = rospy.get_param("~speed", 0.5)
+
+>>>>>>> Stashed changes
         self.parking_distance = 0.0 # meters; try playing with this number!
         self.MAX_VELOCITY = 1
         self.relative_x = 0
@@ -35,6 +40,7 @@ class ParkingController():
         self.relative_x = msg.x_pos
         self.relative_y = msg.y_pos
 
+<<<<<<< Updated upstream
         # notes on coordinate system: 
         relative_angle = math.atan2(self.relative_y, self.relative_x)
         r = self.CIRCLE_RADIUS
@@ -60,12 +66,20 @@ class ParkingController():
             
         if abs(velocity) < 1e-4 and abs(steering_angle) < 1e-3:
             return # Do nothing if we aren't making significant commands
+=======
+        relative_angle = math.atan2(self.relative_y, self.relative_x)
+        steering_amount = min(0.5, abs(relative_angle))
+        steering_angle = steering_amount if self.relative_y > 0 else -steering_amount
+            
+        if abs(steering_angle) < 1e-3: return # Do nothing if we aren't making significant commands
+>>>>>>> Stashed changes
 
         drive_cmd = AckermannDriveStamped()
         drive_cmd.header = Header()
         drive = AckermannDrive()
 
         drive.steering_angle = steering_angle
+<<<<<<< Updated upstream
         drive.speed = 1.0
         #rospy.loginfo("speed: " + str(drive.speed))
         #rospy.loginfo("distance: " + str(d))
@@ -77,6 +91,11 @@ class ParkingController():
         # Use relative position and your control law to set drive_cmd
 
         #################################
+=======
+        drive.speed = self.speed
+        print("steering angle: " + str(drive.steering_angle))
+        drive_cmd.drive = drive
+>>>>>>> Stashed changes
 
         self.drive_pub.publish(drive_cmd)
         self.error_publisher()
