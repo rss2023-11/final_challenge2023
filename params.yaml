@@ -9,6 +9,7 @@ stopsign_topic: "/stopsign"
 # For the line following:
 scan_topic: '/scan'
 line_following_drive_topic: '/line_following_drive'
+speed: 0.5
 
 # For the safety controller:
 safety_topic: '/vesc/low_level/ackermann_cmd_mux/input/safety'

@@ -14,9 +14,11 @@ class Brain:
         self.line_following_drive = None
         self.stopsign_present = False
         self.stopsign_distance = None
+
         self.stop_time = rospy.get_param("~stop_time", 1)        
         self.ignore_time = rospy.get_param("~ignore_time", 2)
         self.stopsign_seen_time = None
+        self.stopsign_looking = True
 
         self.drive_pub = rospy.Publisher(DRIVE_TOPIC, AckermannDriveStamped, queue_size=10) # Publish the drive actions to the robot
 
