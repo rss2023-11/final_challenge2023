@@ -46,7 +46,7 @@ def cd_color_segmentation(img, blah=None):
 	hsv=cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
 	# lower bound and upper bound for orange color
-	lower_bound = np.array([0,140,170])	 #  try lowering V
+	lower_bound = np.array([0,140,100])	 #  try lowering V
 	upper_bound = np.array([65,256,256])
 
 	# find the colors within the boundaries
@@ -57,15 +57,17 @@ def cd_color_segmentation(img, blah=None):
 	contours = contours[0] if len(contours) == 2 else contours[1]
 	x, y, w, h = None, None, None, None
 	#make a bounding box around the cone	
+  max_x = 0
+  bounding_box=((0,0),(0,0))
 	for entry in contours:
-		x,y,w,h = cv2.boundingRect(entry)
-		cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 5)
-
-	try:
+            x,y,w,h = cv2.boundingRect(entry)
+            cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 5)
+            midpt = 300
+            l = abs(x) - midpt
+            r = abs(x+w) - midpt
+            if l > max_x or r > max_x:
+                max_x = max(l, r)
 		bounding_box=((x, y), (x + w, y + h + 5))
-	except:
-		print("no bounding box!")
-		bounding_box=((0,0),(0,0))
  
 	########### YOUR CODE ENDS HERE ###########
  

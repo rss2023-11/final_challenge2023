@@ -47,6 +47,15 @@ class ConeDetector():
             center=ConeLocationPixel()
             center.v=bounding_box[1][1]
             center.u=(bounding_box[0][0]+bounding_box[1][0])/2
+<<<<<<< Updated upstream
+=======
+            # l = bounding_box[0][0]
+            # r = bounding_box[1][0]
+            # if abs(l) > abs(r):
+            #     center.u = l
+            # else:
+            #     center.u = r
+>>>>>>> Stashed changes
             
             # image = self.bridge.imgmsg_to_cv2(image_msg, "bgr8")
             
@@ -63,7 +72,11 @@ class ConeDetector():
 
         # debug_msg = self.bridge.cv2_to_imgmsg(image, "bgr8")
         else:
+<<<<<<< Updated upstream
             print("bounding_box is", bounding_box)
+=======
+            #print("bounding_box is", bounding_box)
+>>>>>>> Stashed changes
             bounding_box_img=self.bridge.cv2_to_imgmsg(image, "bgr8")
             self.debug_pub.publish(bounding_box_img)
 

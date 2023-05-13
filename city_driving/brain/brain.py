@@ -55,17 +55,19 @@ class Brain:
 
     def publish_best_drive(self):
         # Determine if looking for stop sign
-        if not self.stopsign_looking and self.stopsign_seen_time - rospy.Time.now() >= self.ignore_time:
+        if not self.stopsign_looking and self.stopsign_seen_time - rospy.Time.now() >= rospy.Duration(self.ignore_time):
+            print('looking for stop sign again')
             self.stopsign_looking = True
 
         # If not looking for a stop sign and see stop sign, stop
-        if self.stopsign_present and self.stopsign_looking:
+        elif self.stopsign_present and self.stopsign_looking:
+            print('seeing stop sign, pausing')
             rospy.sleep(self.stop_time)
             self.stopsign_looking = False
             self.stopsign_seen_time = rospy.Time.now()
 
         # Otherwise, just follow line
-        if self.line_following_drive is not None:
+        elif self.line_following_drive is not None:
             self.drive_pub.publish(self.line_following_drive)
 
 if __name__=="__main__":
